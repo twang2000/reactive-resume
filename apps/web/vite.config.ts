@@ -228,6 +228,19 @@ export default defineConfig({
 	},
 
 	plugins: [
+		devtools(),
+		{
+			name: "validate-development-ports",
+			apply: "serve",
+			configResolved(config) {
+				const serverPort = Number.parseInt(process.env.SERVER_PORT ?? "3001", 10);
+				if (config.server.port === serverPort) {
+					throw new Error(
+						`PORT and SERVER_PORT both use ${serverPort}. Use different ports (for example, PORT=3003 and SERVER_PORT=3001) so the API proxy does not forward requests to itself.`,
+					);
+				}
+			},
+		},
 		phosphorWeightsPlugin(),
 		{
 			name: "cloudflare-rocket-loader-bootstrap",
@@ -240,7 +253,6 @@ export default defineConfig({
 					),
 			},
 		},
-		devtools(),
 		tailwindcss(),
 		tanstackRouter({
 			target: "react",

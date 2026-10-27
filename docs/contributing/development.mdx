@@ -103,7 +103,7 @@ Run every command from the repository root unless a step says otherwise.
 | Process        | Address                                 | Notes                                                                                             |
 | -------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------- |
 | Vite (web app) | `http://localhost:3000` (`PORT`)        | Hot reload. Proxies `/api`, `/mcp`, `/uploads`, `/.well-known`, and `/schema.json` to the server. |
-| Hono (server)  | `http://localhost:3001` (`SERVER_PORT`) | Restarts on change through `tsx watch`.                                                           |
+| Hono (server)  | `http://localhost:3001` (`SERVER_PORT`) | Restarts on change through Node's watch mode with the `tsx` loader.                               |
 | Email preview  | `http://localhost:3002`                 | Previews the email templates in `packages/email`.                                                 |
 
 Use `pnpm dev:web` to start only Vite. API calls still need a server running.
